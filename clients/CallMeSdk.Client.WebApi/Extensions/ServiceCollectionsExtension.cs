@@ -32,10 +32,10 @@ public static class ServiceCollectionExtension
 
     private static IServiceCollection AddClientServices(this IServiceCollection services)
     {
-        services.AddScoped<CustomerProviderStrategy<SoapConfiguration>>().
-            AddScoped<CustomerProviderStrategy<RestConfiguration>>().
-            AddScoped<CustomerProviderStrategy<FtpConfiguration>>().
-            AddScoped(typeof(CustomerProviderStrategy<>)).
+        // services.AddScoped<CustomerProviderStrategy<SoapConfiguration>>().
+        //     AddScoped<CustomerProviderStrategy<RestConfiguration>>().
+        //     AddScoped<CustomerProviderStrategy<FtpConfiguration>>().
+        services.AddScoped(typeof(CustomerProviderStrategy<>)).
             AddScoped<ICustomerProviderService, CustomerProviderService>();
         
         return services;
