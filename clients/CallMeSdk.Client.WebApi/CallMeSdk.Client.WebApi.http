@@ -1,0 +1,14 @@
+# @name AzonBank Request
+GET http://localhost:5000/api/customers/AzonBank
+Accept: application/json
+###
+
+# @name MikrozortBank Request
+GET http://localhost:5000/api/customers/MikrozortBank
+Accept: application/json
+###
+
+# @name StrongLifeInsurance Request
+GET http://localhost:5000/api/customers/StrongLifeInsurance
+Accept: application/json
+
