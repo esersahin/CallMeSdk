@@ -1,6 +1,6 @@
 namespace CallMeSdk.Client.WebApi.Extensions;
 
-public static class ServiceCollectionExtensions
+public static class ServiceCollectionExtension
 {
     public static void AddClients(this IServiceCollection services, IConfiguration configuration)
     {
@@ -14,32 +14,29 @@ public static class ServiceCollectionExtensions
     
     private static IServiceCollection AddResolvers(this IServiceCollection services)
     {
-        services.AddScoped<IConfigurationResolver, ConfigurationResolver>();
-
-        services.AddScoped<IProviderResolver, AzonBankProviderResolver>();
-        services.AddScoped<IProviderResolver, MikrozortBankProviderResolver>();
-        services.AddScoped<IProviderResolver, StrongLifeInsuranceProviderResolver>();
+        services.AddScoped<IConfigurationResolver, ConfigurationResolver>().
+            AddScoped<IProviderResolver, AzonBankProviderResolver>().
+            AddScoped<IProviderResolver, MikrozortBankProviderResolver>().
+            AddScoped<IProviderResolver, StrongLifeInsuranceProviderResolver>();
 
         return services;
     }
     
     private static IServiceCollection AddFactories(this IServiceCollection services)
     {
-        services.AddScoped<IDataAdapterFactory, DataAdapterFactory>();
-        services.AddScoped<ICustomerProviderFactory, CustomerProviderFactory>();
+        services.AddScoped<IDataAdapterFactory, DataAdapterFactory>().
+            AddScoped<ICustomerProviderFactory, CustomerProviderFactory>();
         
         return services;
     }
 
     private static IServiceCollection AddClientServices(this IServiceCollection services)
     {
-        services.AddScoped<CustomerProviderStrategy<SoapConfiguration>>();
-        services.AddScoped<CustomerProviderStrategy<RestConfiguration>>();
-        services.AddScoped<CustomerProviderStrategy<FtpConfiguration>>();
-
-        services.AddScoped(typeof(CustomerProviderStrategy<>));
-        
-        services.AddScoped<ICustomerProviderService, CustomerProviderService>();
+        services.AddScoped<CustomerProviderStrategy<SoapConfiguration>>().
+            AddScoped<CustomerProviderStrategy<RestConfiguration>>().
+            AddScoped<CustomerProviderStrategy<FtpConfiguration>>().
+            AddScoped(typeof(CustomerProviderStrategy<>)).
+            AddScoped<ICustomerProviderService, CustomerProviderService>();
         
         return services;
     }
