@@ -15,7 +15,7 @@ namespace CallMeSdk.Client.WebApi.Controllers
         public async Task<IActionResult> GetCustomers(string clientName)
         {
             var customers = await _customerProviderService.GetCustomersAsync(clientName);
-            return customers is not null ? Ok(customers) : NotFound("Provider not found");
+            return customers.Any() ? Ok(customers) : NotFound("Provider not found");
         }
     }
 }

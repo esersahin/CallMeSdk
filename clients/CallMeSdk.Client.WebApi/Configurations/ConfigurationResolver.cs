@@ -11,10 +11,8 @@ public class ConfigurationResolver
     IServiceProvider serviceProvider
 ) : IConfigurationResolver
 {
-    public TConfig GetConfiguration<TConfig>(string providerName) where TConfig : class, IClientConfiguration
-    {
-        var config = serviceProvider.GetConfiguration<TConfig>(providerName);
+    public TConfig GetConfiguration<TConfig>(string providerName) where TConfig : class, IClientConfiguration =>
+        serviceProvider.GetConfiguration<TConfig>(providerName) 
+        ?? throw new InvalidOperationException($"Configuration retrieval failed for {providerName}.");
 
-        return config ?? throw new InvalidOperationException($"Configuration retrieval failed for {providerName}.");
-    }
 }
