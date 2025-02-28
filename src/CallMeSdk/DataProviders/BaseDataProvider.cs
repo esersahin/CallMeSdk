@@ -1,11 +1,11 @@
 namespace CallMeSdk.DataProviders;
 
-internal abstract class BaseDataProvider<TConfiguration> : IDataProviderStrategy<TConfiguration>
+internal abstract class BaseDataProvider<TConfiguration> : IDataProvider<TConfiguration>
     where TConfiguration : class, IClientConfiguration
 {
     private TConfiguration? _configuration;
 
-    public IDataProviderStrategy<TConfiguration> Configure(TConfiguration configuration)
+    public IDataProvider<TConfiguration> Configure(TConfiguration configuration)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         return this;
@@ -15,7 +15,7 @@ internal abstract class BaseDataProvider<TConfiguration> : IDataProviderStrategy
     {
         if (_configuration is null)
         {
-            throw new InvalidOperationException("Configuration must be set before using the providerStrategy.");    
+            throw new InvalidOperationException("Configuration must be set before using the provider.");    
         }
 
         return _configuration;

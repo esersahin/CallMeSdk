@@ -1,26 +1,26 @@
 namespace CallMeSdk.DataProviders;
 
-public interface ITimingDataProviderStrategy<in TConfiguration> : IDataProviderStrategy<TConfiguration>
+public interface ITimingDataProvider<in TConfiguration> : IDataProvider<TConfiguration>
     where TConfiguration : class, IClientConfiguration
 {
-    ITimingDataProviderStrategy<TConfiguration> SetCorporateName(string corporateName) ;
+    ITimingDataProvider<TConfiguration> SetCorporateName(string corporateName) ;
 }
 
 internal sealed class TimingDataProvider<TConfiguration>
 (
-    IDataProviderStrategy<TConfiguration> innerProviderStrategy,
+    IDataProvider<TConfiguration> innerProvider,
     ILogger<TimingDataProvider<TConfiguration>> logger
-) : ITimingDataProviderStrategy<TConfiguration>
+) : ITimingDataProvider<TConfiguration>
     where TConfiguration : class, IClientConfiguration
 {
     private string? _corporateName;
 
-    public IDataProviderStrategy<TConfiguration> Configure(TConfiguration configuration)
+    public IDataProvider<TConfiguration> Configure(TConfiguration configuration)
     {
-        return innerProviderStrategy.Configure(configuration);
+        return innerProvider.Configure(configuration);
     }
 
-    public ITimingDataProviderStrategy<TConfiguration> SetCorporateName(string corporateName)
+    public ITimingDataProvider<TConfiguration> SetCorporateName(string corporateName)
     {
         _corporateName = corporateName;
         return this;
@@ -32,7 +32,7 @@ internal sealed class TimingDataProvider<TConfiguration>
             _corporateName ?? "Unknown", nameof(FetchAsync));
         
         var stopwatch = Stopwatch.StartNew();
-        var result = await innerProviderStrategy.FetchAsync(dataAdapter);
+        var result = await innerProvider.FetchAsync(dataAdapter);
         stopwatch.Stop();
         
         logger.LogInformation("{CorporateName} - {MethodName} completed in {StopwatchElapsedMilliseconds} ms", 

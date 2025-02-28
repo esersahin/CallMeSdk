@@ -117,19 +117,19 @@ using (var scope = serviceProvider.CreateScope())
     var restDataAdapterStrategy = dataAdapterFactory.Create(Clients.MikrozortBank);
     var ftpDataAdapterStrategy = dataAdapterFactory.Create(Clients.StrongLifeInsurance);
 
-    var soapTimingDataProvider = scope.ServiceProvider.GetRequiredService<ITimingDataProviderStrategy<SoapConfiguration>>();
+    var soapTimingDataProvider = scope.ServiceProvider.GetRequiredService<ITimingDataProvider<SoapConfiguration>>();
     soapTimingDataProvider.Configure(soapConfiguration);
     soapTimingDataProvider.SetCorporateName(Clients.AzonBank);
     var soapCustomers = await soapTimingDataProvider.FetchAsync(soapDataAdapterStrategy);
     soapCustomers.PrintCustomers($"{Clients.AzonBank} Timing Data Provider");
 
-    var restTimingDataProvider = scope.ServiceProvider.GetRequiredService<ITimingDataProviderStrategy<RestConfiguration>>();
+    var restTimingDataProvider = scope.ServiceProvider.GetRequiredService<ITimingDataProvider<RestConfiguration>>();
     restTimingDataProvider.Configure(restConfiguration);
     restTimingDataProvider.SetCorporateName(Clients.MikrozortBank);
     var restCustomers = await restTimingDataProvider.FetchAsync(restDataAdapterStrategy);
     restCustomers.PrintCustomers($"{Clients.MikrozortBank} Timing Data Provider");
 
-    var ftpTimingDataProvider = scope.ServiceProvider.GetRequiredService<ITimingDataProviderStrategy<FtpConfiguration>>();
+    var ftpTimingDataProvider = scope.ServiceProvider.GetRequiredService<ITimingDataProvider<FtpConfiguration>>();
     ftpTimingDataProvider.Configure(ftpConfiguration);
     ftpTimingDataProvider.SetCorporateName(Clients.StrongLifeInsurance);
     var ftpCustomers = await ftpTimingDataProvider.FetchAsync(ftpDataAdapterStrategy);

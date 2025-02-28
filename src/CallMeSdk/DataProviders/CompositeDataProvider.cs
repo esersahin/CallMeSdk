@@ -6,7 +6,7 @@ public interface ICompositeDataProvider
 
     void AddProvider<TConfiguration>
     (
-        IDataProviderStrategy<TConfiguration> providerStrategy,
+        IDataProvider<TConfiguration> provider,
         TConfiguration configuration,
         IDataAdapter strategy
     ) where TConfiguration : class, IClientConfiguration;
@@ -17,12 +17,12 @@ internal sealed class CompositeDataProvider : ICompositeDataProvider
     private readonly List<IProviderWrapper> _providers = new();
 
     public void AddProvider<TConfiguration>(
-        IDataProviderStrategy<TConfiguration> providerStrategy,
+        IDataProvider<TConfiguration> provider,
         TConfiguration configuration,
         IDataAdapter strategy) where TConfiguration : class, IClientConfiguration
     {
-        providerStrategy.Configure(configuration);
-        _providers.Add(new ProviderWrapper(providerStrategy, strategy));
+        provider.Configure(configuration);
+        _providers.Add(new ProviderWrapper(provider, strategy));
     }
 
     public async Task<IEnumerable<Customer>> FetchAsync()
@@ -45,13 +45,13 @@ internal sealed class CompositeDataProvider : ICompositeDataProvider
 
     private sealed class ProviderWrapper
     (
-        IDataProviderStrategy providerStrategy,
+        IDataProvider provider,
         IDataAdapter strategy
     ) : IProviderWrapper
     {
         public async Task<IEnumerable<Customer>> FetchAsync()
         {
-            return await providerStrategy.FetchAsync(strategy);
+            return await provider.FetchAsync(strategy);
         }
     }
 }

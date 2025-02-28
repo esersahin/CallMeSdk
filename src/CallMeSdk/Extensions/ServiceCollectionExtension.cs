@@ -8,15 +8,15 @@ public static class ServiceCollectionExtension
 
         services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
         
-        services.AddTransient<IDataProviderStrategy<SoapConfiguration>, SoapDataProvider>();
-        services.AddTransient<IDataProviderStrategy<RestConfiguration>, RestDataProvider>();
-        services.AddTransient<IDataProviderStrategy<FtpConfiguration>, FtpDataProvider>();
+        services.AddTransient<IDataProvider<SoapConfiguration>, SoapDataProvider>();
+        services.AddTransient<IDataProvider<RestConfiguration>, RestDataProvider>();
+        services.AddTransient<IDataProvider<FtpConfiguration>, FtpDataProvider>();
 
         services.AddSingleton<ICustomerIdService, CustomerIdService>();
         services.AddTransient<ICustomerService, CustomerService>();
 
         services.AddTransient<ICompositeDataProvider, CompositeDataProvider>();
-        services.AddTransient(typeof(ITimingDataProviderStrategy<>), typeof(TimingDataProvider<>));
+        services.AddTransient(typeof(ITimingDataProvider<>), typeof(TimingDataProvider<>));
 
         services.AddKeyedTransient<IFtpClient, FluentFtpClient>(FtpClientType.FluentFtp.GetKey());
         services.AddSingleton<IFtpClientConfigurator, FtpClientConfigurator>();
