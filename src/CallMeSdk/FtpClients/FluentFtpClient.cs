@@ -6,8 +6,7 @@ internal sealed class FluentFtpClient : IFtpClient
 
     public void Configure(FtpConfiguration configuration)
     {
-        if (configuration == null)
-            throw new ArgumentNullException(nameof(configuration));
+        ArgumentNullException.ThrowIfNull(configuration);
 
         _ftpClient = new FtpClient(configuration.FtpServer, configuration.Username, configuration.Password);
     }

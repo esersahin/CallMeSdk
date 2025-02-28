@@ -19,10 +19,10 @@ internal sealed class CustomerService(
     {
         try
         {
-            return await dataProviderFactory
-                .Create<TConfig>()
-                .Configure(configuration)
-                .FetchAsync(dataAdapter);
+            return await dataProviderFactory.
+                Create<TConfig>().
+                Configure(configuration).
+                FetchAsync(dataAdapter);
         }
         catch (Exception ex)
         {
