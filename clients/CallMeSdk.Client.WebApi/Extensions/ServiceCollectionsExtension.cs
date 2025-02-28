@@ -15,9 +15,9 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddResolvers(this IServiceCollection services)
     {
         services.AddScoped<IConfigurationResolver, ConfigurationResolver>().
-            AddScoped<IProviderResolver, AzonBankProviderResolver>().
-            AddScoped<IProviderResolver, MikrozortBankProviderResolver>().
-            AddScoped<IProviderResolver, StrongLifeInsuranceProviderResolver>();
+                 AddScoped<IProviderResolver, AzonBankProviderResolver>().
+                 AddScoped<IProviderResolver, MikrozortBankProviderResolver>().
+                 AddScoped<IProviderResolver, StrongLifeInsuranceProviderResolver>();
 
         return services;
     }
@@ -25,7 +25,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddFactories(this IServiceCollection services)
     {
         services.AddScoped<IDataAdapterFactory, DataAdapterFactory>().
-            AddScoped<ICustomerProviderFactory, CustomerProviderFactory>();
+                 AddScoped<ICustomerProviderFactory, CustomerProviderFactory>();
         
         return services;
     }
@@ -33,7 +33,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddClientServices(this IServiceCollection services)
     {
         services.AddScoped(typeof(CustomerProviderStrategy<>)).
-            AddScoped<ICustomerProviderService, CustomerProviderService>();
+                 AddScoped<ICustomerProviderService, CustomerProviderService>();
         
         return services;
     }
@@ -41,7 +41,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddAzonBank(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<SoapConfiguration>(Clients.AzonBank, configuration).
-            AddKeyedScoped<IDataAdapter, AzonBankSoapDataAdapter>(Clients.AzonBank);
+                 AddKeyedScoped<IDataAdapter, AzonBankSoapDataAdapter>(Clients.AzonBank);
      
         return services;
     }
@@ -49,7 +49,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddMikrozortBank(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<RestConfiguration>(Clients.MikrozortBank, configuration).
-            AddKeyedScoped<IDataAdapter, MikrozortBankRestDataAdapter>(Clients.MikrozortBank);
+                 AddKeyedScoped<IDataAdapter, MikrozortBankRestDataAdapter>(Clients.MikrozortBank);
 
         return services;
     }
@@ -57,7 +57,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddStrongLifeInsurance(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<FtpConfiguration>(Clients.StrongLifeInsurance, configuration).
-            AddKeyedScoped<IDataAdapter, StrongLifeInsuranceFtpDataAdapter>(Clients.StrongLifeInsurance);
+                 AddKeyedScoped<IDataAdapter, StrongLifeInsuranceFtpDataAdapter>(Clients.StrongLifeInsurance);
 
         return services;
     }

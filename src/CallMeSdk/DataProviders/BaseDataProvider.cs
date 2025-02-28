@@ -13,12 +13,7 @@ internal abstract class BaseDataProvider<TConfiguration> : IDataProvider<TConfig
     
     protected TConfiguration GetConfiguration()
     {
-        if (_configuration is null)
-        {
-            throw new InvalidOperationException("Configuration must be set before using the provider.");    
-        }
-
-        return _configuration;
+        return _configuration ?? throw new InvalidOperationException("Configuration must be set before using the provider.");
     }
 
     public async Task<IEnumerable<Customer>> FetchAsync(IDataAdapter dataAdapter)

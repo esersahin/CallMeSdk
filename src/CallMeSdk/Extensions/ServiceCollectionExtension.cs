@@ -9,18 +9,18 @@ public static class ServiceCollectionExtension
         services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
         
         services.AddTransient<IDataProvider<SoapConfiguration>, SoapDataProvider>().
-            AddTransient<IDataProvider<RestConfiguration>, RestDataProvider>().
-            AddTransient<IDataProvider<FtpConfiguration>, FtpDataProvider>();
-
+                 AddTransient<IDataProvider<RestConfiguration>, RestDataProvider>().
+                 AddTransient<IDataProvider<FtpConfiguration>, FtpDataProvider>();
+        
         services.AddSingleton<ICustomerIdService, CustomerIdService>().
-            AddTransient<ICustomerService, CustomerService>();
+                 AddTransient<ICustomerService, CustomerService>();
 
         services.AddTransient<ICompositeDataProvider, CompositeDataProvider>().
-            AddTransient(typeof(ITimingDataProvider<>), typeof(TimingDataProvider<>));
+                 AddTransient(typeof(ITimingDataProvider<>), typeof(TimingDataProvider<>));
 
         services.AddSingleton<IFtpClientConfigurator, FtpClientConfigurator>().
-            AddSingleton<IFtpClientFactory, FtpClientFactory>().
-            AddKeyedTransient<IFtpClient, FluentFtpClient>(FtpClientType.FluentFtp.GetKey());
+                 AddSingleton<IFtpClientFactory, FtpClientFactory>().
+                 AddKeyedTransient<IFtpClient, FluentFtpClient>(FtpClientType.FluentFtp.GetKey());
         
         services.AddScoped<JsonSerializerOptions>(provider =>
         {
