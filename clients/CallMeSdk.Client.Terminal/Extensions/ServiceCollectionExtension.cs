@@ -7,6 +7,7 @@ public static class ServiceCollectionExtension
         services.AddResolvers().
             AddFactories().
             AddClientServices().
+            AddStopWatchService().
             AddAzonBank(configuration).
             AddMikrozortBank(configuration).
             AddStrongLifeInsurance(configuration);
@@ -33,6 +34,13 @@ public static class ServiceCollectionExtension
 
         return services;
     }
+
+    private static IServiceCollection AddStopWatchService(this IServiceCollection services)
+    {
+        services.AddTransient<IStopwatchService, DefaultStopwatchService>();
+        return services;
+    }
+
 
     private static IServiceCollection AddAzonBank(this IServiceCollection services, IConfiguration configuration)
     {

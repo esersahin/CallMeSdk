@@ -9,7 +9,8 @@ public interface ITimingDataProvider<in TConfiguration> : IDataProvider<TConfigu
 internal sealed class TimingDataProvider<TConfiguration>
 (
     IDataProvider<TConfiguration> innerProvider,
-    ILogger<TimingDataProvider<TConfiguration>> logger
+    ILogger<TimingDataProvider<TConfiguration>> logger,
+    IStopwatchService stopwatchService
 ) : ITimingDataProvider<TConfiguration>
     where TConfiguration : class, IClientConfiguration
 {
@@ -30,13 +31,13 @@ internal sealed class TimingDataProvider<TConfiguration>
     {
         logger.LogInformation("{CorporateName} - {MethodName} started", 
             _corporateName ?? "Unknown", nameof(FetchAsync));
-        
-        var stopwatch = Stopwatch.StartNew();
+
+        stopwatchService.Start();
         var result = await innerProvider.FetchAsync(dataAdapter);
-        stopwatch.Stop();
+        stopwatchService.Stop();
         
         logger.LogInformation("{CorporateName} - {MethodName} completed in {StopwatchElapsedMilliseconds} ms", 
-                _corporateName ?? "Unknown", nameof(FetchAsync), stopwatch.ElapsedMilliseconds);
+                _corporateName ?? "Unknown", nameof(FetchAsync), stopwatchService.ElapsedMilliseconds);
         
         return result;
     }
