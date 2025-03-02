@@ -1,14 +1,13 @@
 namespace CallMeSdk.DataProviders;
 
-internal abstract class BaseDataProvider<TConfiguration> : IDataProvider<TConfiguration>
+public abstract class BaseDataProvider<TConfiguration> : IDataProvider<TConfiguration>
     where TConfiguration : class, IClientConfiguration
 {
     private TConfiguration? _configuration;
 
-    public IDataProvider<TConfiguration> Configure(TConfiguration configuration)
+    public void Configure(TConfiguration configuration)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        return this;
     }
     
     protected TConfiguration GetConfiguration()
