@@ -29,8 +29,8 @@ public static class ServiceCollectionExtension
 
     private static IServiceCollection AddClientServices(this IServiceCollection services)
     {
-        services.AddSingleton<ICustomerDataService, CustomerDataService>().
-            AddSingleton<ICustomerProcessor, CustomerProcessor>();
+        services.AddSingleton<ICustomersDataService, CustomersDataService>().
+                 AddSingleton<ICustomersProcessor, CustomersProcessor>();
 
         return services;
     }

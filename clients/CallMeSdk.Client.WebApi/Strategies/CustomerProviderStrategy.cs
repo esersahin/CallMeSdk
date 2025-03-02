@@ -6,7 +6,7 @@ public interface ICustomerProviderStrategy
 }
 
 public sealed class CustomerProviderStrategy<TConfiguration>(
-    ICustomerService customerService,
+    ICustomersService customersService,
     IConfigurationResolver configurationResolver,
     IDataAdapterFactory adapterFactory
 ) : ICustomerProviderStrategy where TConfiguration : class, IClientConfiguration
@@ -15,6 +15,6 @@ public sealed class CustomerProviderStrategy<TConfiguration>(
     {
         var config = configurationResolver.GetConfiguration<TConfiguration>(clientName);
         var adapter = adapterFactory.Create(clientName);
-        return await customerService.GetCustomersAsync(config, adapter);
+        return await customersService.GetCustomersAsync(config, adapter);
     }
 }

@@ -1,6 +1,6 @@
 namespace CallMeSdk.Client.Terminal.Extensions;
 
-public static class CustomerExtension
+public static class CustomersExtension
 {
     public static void PrintCustomers(this IEnumerable<Customer> customers, string corporateName)
     {

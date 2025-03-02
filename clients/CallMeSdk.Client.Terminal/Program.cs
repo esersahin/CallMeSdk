@@ -20,30 +20,30 @@ var serviceProvider = serviceCollection.AddLogging(logging =>
 // Approach I
 using (var scope = serviceProvider.CreateScope())
 {
-    var customerService = scope.ServiceProvider.GetRequiredService<ICustomerService>();
+    var customersService = scope.ServiceProvider.GetRequiredService<ICustomersService>();
     var jsonSerializerOptions = scope.ServiceProvider.GetRequiredService<JsonSerializerOptions>();
     var customerIdService = scope.ServiceProvider.GetRequiredService<ICustomerIdService>();
     
     var soapConfiguration = scope.GetConfiguration<SoapConfiguration>(Clients.AzonBank);
     var soapAdapter = new AzonBankSoapDataAdapter(customerIdService);
-    var soapCustomers = await customerService.GetCustomersAsync(soapConfiguration, soapAdapter);
+    var soapCustomers = await customersService.GetCustomersAsync(soapConfiguration, soapAdapter);
     soapCustomers.PrintCustomers(Clients.AzonBank);
     
     var restConfiguration = scope.GetConfiguration<RestConfiguration>(Clients.MikrozortBank);
     var restAdapter = new MikrozortBankRestDataAdapter(jsonSerializerOptions);
-    var restCustomers = await customerService.GetCustomersAsync(restConfiguration, restAdapter);
+    var restCustomers = await customersService.GetCustomersAsync(restConfiguration, restAdapter);
     restCustomers.PrintCustomers(Clients.MikrozortBank);
     
     var ftpConfiguration = scope.GetConfiguration<FtpConfiguration>(Clients.StrongLifeInsurance);
     var ftpAdapter = new StrongLifeInsuranceFtpDataAdapter(customerIdService);
-    var ftpCustomers = await customerService.GetCustomersAsync(ftpConfiguration, ftpAdapter);
+    var ftpCustomers = await customersService.GetCustomersAsync(ftpConfiguration, ftpAdapter);
     ftpCustomers.PrintCustomers(Clients.StrongLifeInsurance);
 }
 
 // Approach II
 using (var scope = serviceProvider.CreateScope())
 {
-    var customerService = scope.ServiceProvider.GetRequiredService<ICustomerService>();
+    var customerService = scope.ServiceProvider.GetRequiredService<ICustomersService>();
     var dataAdapterFactory = scope.ServiceProvider.GetRequiredService<IDataAdapterFactory>();
    
     var soapConfiguration = scope.GetConfiguration<SoapConfiguration>(Clients.AzonBank);
@@ -65,14 +65,14 @@ using (var scope = serviceProvider.CreateScope())
 // Approach III
 using (var scope = serviceProvider.CreateScope())
 {
-    var customerDataService = scope.ServiceProvider.GetRequiredService<ICustomerDataService>();
-    await customerDataService.RetrieveAndPrintCustomersAsync();
+    var customersDataService = scope.ServiceProvider.GetRequiredService<ICustomersDataService>();
+    await customersDataService.RetrieveAndPrintCustomersAsync();
 }
 
 // Approach IV
 using (var scope = serviceProvider.CreateScope())
 {
-    var processor = scope.ServiceProvider.GetRequiredService<ICustomerProcessor>();
+    var processor = scope.ServiceProvider.GetRequiredService<ICustomersProcessor>();
     await processor.ProcessCustomersAsync();
 }
 

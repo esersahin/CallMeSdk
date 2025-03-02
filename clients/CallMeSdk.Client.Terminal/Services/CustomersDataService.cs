@@ -1,15 +1,15 @@
 namespace CallMeSdk.Client.Terminal.Services;
 
-public interface ICustomerDataService
+public interface ICustomersDataService
 {
     Task RetrieveAndPrintCustomersAsync();
 }
 
-public sealed class CustomerDataService(
-    ICustomerService customerService,
+public sealed class CustomersDataService(
+    ICustomersService customerService,
     IConfigurationResolver configurationResolver,
     IDataAdapterFactory dataAdapterFactory
-) : ICustomerDataService
+) : ICustomersDataService
 {
     public async Task RetrieveAndPrintCustomersAsync()
     {

@@ -16,9 +16,9 @@ internal sealed class TimingDataProvider<TConfiguration>
 {
     private string? _corporateName;
 
-    public IDataProvider<TConfiguration> Configure(TConfiguration configuration)
+    public void Configure(TConfiguration configuration)
     {
-        return innerProvider.Configure(configuration);
+        innerProvider.Configure(configuration);
     }
 
     public ITimingDataProvider<TConfiguration> SetCorporateName(string corporateName)

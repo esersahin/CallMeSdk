@@ -1,15 +1,15 @@
 namespace CallMeSdk.Client.Terminal.Processors;
 
-public interface ICustomerProcessor
+public interface ICustomersProcessor
 {
     Task ProcessCustomersAsync();
 }
 
-public sealed class CustomerProcessor
+public sealed class CustomersProcessor
 (
     IServiceProvider serviceProvider,
     IDataAdapterFactory dataAdapterFactory
-) : ICustomerProcessor
+) : ICustomersProcessor
 {
     public async Task ProcessCustomersAsync()
     {

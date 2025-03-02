@@ -13,7 +13,7 @@ public static class ServiceCollectionExtension
                  AddTransient<IDataProvider<FtpConfiguration>, FtpDataProvider>();
         
         services.AddSingleton<ICustomerIdService, CustomerIdService>().
-                 AddTransient<ICustomerService, CustomerService>();
+                 AddTransient<ICustomersService, CustomersService>();
 
         services.AddTransient<ICompositeDataProvider, CompositeDataProvider>().
                  AddTransient(typeof(ITimingDataProvider<>), typeof(TimingDataProvider<>));

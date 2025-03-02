@@ -22,4 +22,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.2" />
   </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="CallMeSdk.Tests.Unit" />
+        <InternalsVisibleTo Include="CallMeSdk.Tests.Integration" />
+    </ItemGroup>
 </Project>

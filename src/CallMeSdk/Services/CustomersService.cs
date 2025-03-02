@@ -1,6 +1,6 @@
 namespace CallMeSdk.Services;
 
-public interface ICustomerService
+public interface ICustomersService
 {
     Task<IEnumerable<Customer>> GetCustomersAsync<TConfig>
     (
@@ -11,7 +11,7 @@ public interface ICustomerService
 
 internal sealed class CustomersService(
     IDataProviderFactory dataProviderFactory
-) : ICustomerService
+) : ICustomersService
 {
     public async Task<IEnumerable<Customer>> GetCustomersAsync<TConfig>(
         TConfig configuration, 
