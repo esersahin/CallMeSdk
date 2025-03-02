@@ -9,7 +9,7 @@ public interface ICustomerService
     ) where TConfig : class, IClientConfiguration;
 }
 
-internal sealed class CustomerService(
+internal sealed class CustomersService(
     IDataProviderFactory dataProviderFactory
 ) : ICustomerService
 {
@@ -19,10 +19,9 @@ internal sealed class CustomerService(
     {
         try
         {
-            return await dataProviderFactory.
-                Create<TConfig>().
-                Configure(configuration).
-                FetchAsync(dataAdapter);
+            var dataProvider = dataProviderFactory.Create<TConfig>();
+            dataProvider.Configure(configuration);
+            return await dataProvider.FetchAsync(dataAdapter);
         }
         catch (Exception ex)
         {
