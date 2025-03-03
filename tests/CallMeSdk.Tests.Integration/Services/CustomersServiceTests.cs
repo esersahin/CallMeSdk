@@ -36,7 +36,7 @@ public class CustomersServiceTests
 
         var mockCustomers = new List<Customer>
         {
-            new Customer { CustomerId = CustomerId.Create("ABC12345", customerIdService), Name = "John Doe", Email = "johndoe@abc.com" }
+            new() { CustomerId = CustomerId.Create("ABC12345", customerIdService), Name = "John Doe", Email = "johndoe@abc.com" }
         };
         mockDataAdapter.Adapt(Arg.Any<string>()).Returns(mockCustomers);
         

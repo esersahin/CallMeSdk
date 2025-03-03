@@ -21,7 +21,6 @@ public sealed class CustomersServiceFixture : IDisposable
         
         // Add other items to DI
         services.AddSingleton<IDataProviderFactory, DataProviderFactory>().
-                 //AddSingleton<IDataAdapter, MikrozortBankRestDataAdapter>().
                  AddSingleton<ICustomerIdService, CustomerIdService>();
         
         services.AddTransient<IDataProvider<SoapConfiguration>, SoapDataProvider>().
