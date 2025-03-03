@@ -4,16 +4,24 @@ public sealed class CustomersServiceFixture : IDisposable
 {
     public ServiceProvider ServiceProvider { get; private set; }
     public IHttpClientFactory HttpClientFactory { get; private set; }
+    
+    public IDataAdapter MockDataAdapter { get; private set; }
 
     public CustomersServiceFixture()
     {
         var services = new ServiceCollection();
 
+        // Create HttpClientFactory mock and add to DI
         HttpClientFactory = Substitute.For<IHttpClientFactory>();
         services.AddSingleton(HttpClientFactory);        
         
+        // Create IDataAdapter mock and add to DI
+        MockDataAdapter = Substitute.For<IDataAdapter>();
+        services.AddSingleton(MockDataAdapter);
+        
+        // Add other items to DI
         services.AddSingleton<IDataProviderFactory, DataProviderFactory>().
-                 AddSingleton<IDataAdapter, MikrozortBankRestDataAdapter>().
+                 //AddSingleton<IDataAdapter, MikrozortBankRestDataAdapter>().
                  AddSingleton<ICustomerIdService, CustomerIdService>();
         
         services.AddTransient<IDataProvider<SoapConfiguration>, SoapDataProvider>().

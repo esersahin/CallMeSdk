@@ -10,6 +10,10 @@ public class CustomersServiceTests
     {
         // Arrange
         var httpClientFactory = fixture.HttpClientFactory;
+        var mockDataAdapter = fixture.MockDataAdapter;
+        var customerService = fixture.ServiceProvider.GetRequiredService<CustomersService>();
+        var customerIdService = fixture.ServiceProvider.GetRequiredService<ICustomerIdService>();
+        
         var mockResponse = new HttpResponseMessage
         {
             StatusCode = HttpStatusCode.OK,
@@ -24,18 +28,20 @@ public class CustomersServiceTests
 
         httpClientFactory.CreateClient().Returns(httpClient);
 
-        var customerService = fixture.ServiceProvider.GetRequiredService<CustomersService>();
-
         var restConfiguration = new RestConfiguration
         {
             BaseUrl = "http://localhost:8080",
             Endpoint = "/api/customers"
         };
 
-        var dataAdapter = fixture.ServiceProvider.GetRequiredService<IDataAdapter>();
-
+        var mockCustomers = new List<Customer>
+        {
+            new Customer { CustomerId = CustomerId.Create("ABC12345", customerIdService), Name = "John Doe", Email = "johndoe@abc.com" }
+        };
+        mockDataAdapter.Adapt(Arg.Any<string>()).Returns(mockCustomers);
+        
         // Act
-        var result = await customerService.GetCustomersAsync(restConfiguration, dataAdapter);
+        var result = await customerService.GetCustomersAsync(restConfiguration, mockDataAdapter);
         
         // Assert
         Assert.NotNull(result);
@@ -48,6 +54,7 @@ public class CustomersServiceTests
     {
         // Arrange
         var httpClientFactory = fixture.HttpClientFactory;
+        var mockDataAdapter = fixture.MockDataAdapter;
         var customerService = fixture.ServiceProvider.GetRequiredService<CustomersService>();
 
         var mockResponse = new HttpResponseMessage
@@ -70,10 +77,10 @@ public class CustomersServiceTests
             Endpoint = "/api/customers"
         };
 
-        var dataAdapter = fixture.ServiceProvider.GetRequiredService<IDataAdapter>();
-
+        mockDataAdapter.Adapt(Arg.Any<string>()).Throws(new InvalidOperationException("API error"));
+        
         // Act & Assert
         await Assert.ThrowsAsync<InvalidOperationException>(() => 
-            customerService.GetCustomersAsync(restConfiguration, dataAdapter));
+            customerService.GetCustomersAsync(restConfiguration, mockDataAdapter));
     }    
 }

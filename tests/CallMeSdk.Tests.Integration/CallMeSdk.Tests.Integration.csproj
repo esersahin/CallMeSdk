@@ -22,7 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\clients\CallMeSdk.Client.Terminal\CallMeSdk.Client.Terminal.csproj" />
       <ProjectReference Include="..\..\src\CallMeSdk\CallMeSdk.csproj" />
     </ItemGroup>
 
