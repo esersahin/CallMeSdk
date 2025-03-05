@@ -1,28 +1,28 @@
-namespace CallMeSdk.Tests.Integration.DataProviders;
+namespace CallMeSdk.Tests.Integration;
 
 public sealed class CustomersServiceFixture : IDisposable
 {
     public ServiceProvider ServiceProvider { get; private set; }
     public IHttpClientFactory HttpClientFactory { get; private set; }
-    
-    public IDataAdapter MockDataAdapter { get; private set; }
+    public RestConfiguration RestConfiguration { get; private set; }
 
     public CustomersServiceFixture()
     {
         var services = new ServiceCollection();
 
-        // Create HttpClientFactory mock and add to DI
-        HttpClientFactory = Substitute.For<IHttpClientFactory>();
-        services.AddSingleton(HttpClientFactory);        
-        
-        // Create IDataAdapter mock and add to DI
-        MockDataAdapter = Substitute.For<IDataAdapter>();
-        services.AddSingleton(MockDataAdapter);
-        
-        // Add other items to DI
-        services.AddSingleton<IDataProviderFactory, DataProviderFactory>().
-                 AddSingleton<ICustomerIdService, CustomerIdService>();
-        
+        services.AddHttpClient();
+
+        RestConfiguration = new RestConfiguration
+        {
+            BaseUrl = "http://localhost:8080",
+            Endpoint = "/api/customers/rest"
+        };
+
+        services.AddSingleton<IDataAdapter, RestDataAdapter>();
+
+        services.AddSingleton<IDataProviderFactory, DataProviderFactory>();
+        services.AddSingleton<ICustomerIdService, CustomerIdService>();
+
         services.AddTransient<IDataProvider<SoapConfiguration>, SoapDataProvider>().
                  AddTransient<IDataProvider<RestConfiguration>, RestDataProvider>().
                  AddTransient<IDataProvider<FtpConfiguration>, FtpDataProvider>().
@@ -36,8 +36,13 @@ public sealed class CustomersServiceFixture : IDisposable
             return options;
         });
 
-        ServiceProvider = services.BuildServiceProvider();        
+        ServiceProvider = services.BuildServiceProvider();
+
+        HttpClientFactory = ServiceProvider.GetRequiredService<IHttpClientFactory>();
     }
-    
-    public void Dispose() => ServiceProvider?.Dispose();
+
+    public void Dispose()
+    {
+        ServiceProvider?.Dispose();
+    }
 }

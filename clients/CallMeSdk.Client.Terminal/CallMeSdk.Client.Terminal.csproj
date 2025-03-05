@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\CallMeSdk\CallMeSdk.csproj" />
+      <ProjectReference Include="..\CallMeSdk.Client.DataAdapters\CallMeSdk.Client.DataAdapters.csproj" />
     </ItemGroup>
 
     <ItemGroup>

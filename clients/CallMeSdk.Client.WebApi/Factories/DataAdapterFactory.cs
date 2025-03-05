@@ -1,4 +1,4 @@
-namespace CallMeSdk.Client.WebApi.DataAdapters;
+namespace CallMeSdk.Client.WebApi.Factories;
 
 public interface IDataAdapterFactory
 {

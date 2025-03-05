@@ -17,7 +17,6 @@ public class CustomersServiceTests
     public async Task GetCustomersAsync_ValidData_ReturnsCustomers()
     {
         // Arrange
-        
         var customers = new List<Customer>
         {
             new() { CustomerId = CustomerId.Create("ABC12345", new CustomerIdService()), Name = "John Doe", Email = "john@example.com" }

@@ -9,78 +9,35 @@ public class CustomersServiceTests
     public async Task GetCustomersAsync_ShouldReturnCustomers_WhenApiReturnsValidData()
     {
         // Arrange
-        var httpClientFactory = fixture.HttpClientFactory;
-        var mockDataAdapter = fixture.MockDataAdapter;
         var customerService = fixture.ServiceProvider.GetRequiredService<CustomersService>();
-        var customerIdService = fixture.ServiceProvider.GetRequiredService<ICustomerIdService>();
-        
-        var mockResponse = new HttpResponseMessage
-        {
-            StatusCode = HttpStatusCode.OK,
-            Content = new StringContent("[{\"CustomerId\":\"ABC12345\",\"Name\":\"John Doe\",\"Email\":\"johndoe@abc.com\"}]")
-        };
+        var restConfiguration = fixture.RestConfiguration;
+        var dataAdapter = fixture.ServiceProvider.GetRequiredService<IDataAdapter>();
 
-        var mockHttpMessageHandler = new MockHttpMessageHandler(mockResponse);
-        var httpClient = new HttpClient(mockHttpMessageHandler)
-        {
-            BaseAddress = new Uri("http://localhost:8080")
-        };
-
-        httpClientFactory.CreateClient().Returns(httpClient);
-
-        var restConfiguration = new RestConfiguration
-        {
-            BaseUrl = "http://localhost:8080",
-            Endpoint = "/api/customers"
-        };
-
-        var mockCustomers = new List<Customer>
-        {
-            new() { CustomerId = CustomerId.Create("ABC12345", customerIdService), Name = "John Doe", Email = "johndoe@abc.com" }
-        };
-        mockDataAdapter.Adapt(Arg.Any<string>()).Returns(mockCustomers);
-        
         // Act
-        var result = await customerService.GetCustomersAsync(restConfiguration, mockDataAdapter);
-        
+        var result = await customerService.GetCustomersAsync(restConfiguration, dataAdapter);
+
         // Assert
         Assert.NotNull(result);
-        Assert.Single(result);
-        Assert.Equal("John Doe", result.First().Name);
+        Assert.NotEmpty(result);
     }
-    
+
     [Fact]
     public async Task GetCustomersAsync_ShouldThrowException_WhenApiReturnsError()
     {
         // Arrange
-        var httpClientFactory = fixture.HttpClientFactory;
-        var mockDataAdapter = fixture.MockDataAdapter;
         var customerService = fixture.ServiceProvider.GetRequiredService<CustomersService>();
 
-        var mockResponse = new HttpResponseMessage
-        {
-            StatusCode = HttpStatusCode.InternalServerError,
-            Content = new StringContent("Internal Server Error")
-        };
-
-        var mockHttpMessageHandler = new MockHttpMessageHandler(mockResponse);
-        var httpClient = new HttpClient(mockHttpMessageHandler)
-        {
-            BaseAddress = new Uri("http://localhost:8080")
-        };
-
-        httpClientFactory.CreateClient().Returns(httpClient);
-
-        var restConfiguration = new RestConfiguration
+        // Simulate error condition using an invalid endpoint
+        var invalidRestConfiguration = new RestConfiguration
         {
             BaseUrl = "http://localhost:8080",
-            Endpoint = "/api/customers"
+            Endpoint = "/api/invalid-endpoint"
         };
 
-        mockDataAdapter.Adapt(Arg.Any<string>()).Throws(new InvalidOperationException("API error"));
-        
+        var dataAdapter = fixture.ServiceProvider.GetRequiredService<IDataAdapter>();
+
         // Act & Assert
         await Assert.ThrowsAsync<InvalidOperationException>(() => 
-            customerService.GetCustomersAsync(restConfiguration, mockDataAdapter));
-    }    
+            customerService.GetCustomersAsync(invalidRestConfiguration, dataAdapter));
+    }
 }

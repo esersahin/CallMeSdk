@@ -25,17 +25,17 @@ using (var scope = serviceProvider.CreateScope())
     var customerIdService = scope.ServiceProvider.GetRequiredService<ICustomerIdService>();
     
     var soapConfiguration = scope.GetConfiguration<SoapConfiguration>(Clients.AzonBank);
-    var soapAdapter = new AzonBankSoapDataAdapter(customerIdService);
+    var soapAdapter = new SoapDataAdapter(customerIdService);
     var soapCustomers = await customersService.GetCustomersAsync(soapConfiguration, soapAdapter);
     soapCustomers.PrintCustomers(Clients.AzonBank);
     
     var restConfiguration = scope.GetConfiguration<RestConfiguration>(Clients.MikrozortBank);
-    var restAdapter = new MikrozortBankRestDataAdapter(jsonSerializerOptions);
+    var restAdapter = new RestDataAdapter(jsonSerializerOptions);
     var restCustomers = await customersService.GetCustomersAsync(restConfiguration, restAdapter);
     restCustomers.PrintCustomers(Clients.MikrozortBank);
     
     var ftpConfiguration = scope.GetConfiguration<FtpConfiguration>(Clients.StrongLifeInsurance);
-    var ftpAdapter = new StrongLifeInsuranceFtpDataAdapter(customerIdService);
+    var ftpAdapter = new FtpDataAdapter(customerIdService);
     var ftpCustomers = await customersService.GetCustomersAsync(ftpConfiguration, ftpAdapter);
     ftpCustomers.PrintCustomers(Clients.StrongLifeInsurance);
 }

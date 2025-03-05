@@ -23,6 +23,7 @@
   </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="CallMeSdk.Tests.Contract" />
         <InternalsVisibleTo Include="CallMeSdk.Tests.Unit" />
         <InternalsVisibleTo Include="CallMeSdk.Tests.Integration" />
     </ItemGroup>

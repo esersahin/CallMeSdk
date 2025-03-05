@@ -1,4 +1,4 @@
-namespace CallMeSdk.Client.Terminal.DataAdapters;
+namespace CallMeSdk.Client.Terminal.Factories;
 
 public interface IDataAdapterFactory
 {
