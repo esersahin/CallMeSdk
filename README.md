@@ -215,7 +215,7 @@ SDK'nın davranışı, `appsettings.json` aracılığıyla yapılandırılabilir
 ## Genişletilebilirlik
 
 *   **Yeni DataProvider'lar:** `IDataProvider` arayüzünü uygulayan yeni sınıflar oluşturularak varolan `SoapDataProvider`,`RestDataProvider`,`FtpDataProvider` gibi yeni stratejiler eklenebilir.
-*   **Yeni DataAdapter'lar:** CallMeSdk kullanan client projelerinizde `IDataAdapter` arayüzünü uygulayan yeni sınıflar olusturularak client projelerinde varolan `AzonBankSoapDataProvider`,`MikrozortBankRestDataProvider`,`StrongLifeInsuranceFtpDataProvider` gibi yeni stratejiler eklenebilir.
+*   **Yeni DataAdapter'lar :** `IDataAdapter` arayüzünü uygulayan yeni sınıflar olusturularak CallMeSdk.Client.DataAdapters projesinde varolan  `SoapDataAdapter`,`RestDataAdapter`,`FtpDataAdapter` gibi yeni adaptörler eklenebilir.
 
 ## Geliştirme ortamı için alt yapı
 *  SOAP ve REST istekleri icin wiremock docker imaji ve kurulumu
