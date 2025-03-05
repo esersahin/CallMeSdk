@@ -23,8 +23,6 @@
   </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="CallMeSdk.Tests.Contract" />
-        <InternalsVisibleTo Include="CallMeSdk.Tests.Unit" />
-        <InternalsVisibleTo Include="CallMeSdk.Tests.Integration" />
+        <InternalsVisibleTo Include="CallMeSdk.Tests" />
     </ItemGroup>
 </Project>

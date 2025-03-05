@@ -27,6 +27,29 @@ SDK, aşağıdaki katmanlardan oluşuyor:
 *   **Services:** Servis sınıfları (örn. `CustomerService`).
 *   **Value Objects:** Domain modelleri için değer nesneleri (örn. `CustomerId`).
 
+## Testler
+Bu proje, Unit, Contract ve Integration testlerini içerir. Her bir test türü, farklı bir amaca hizmet eder ve farklı şekillerde çalıştırılır.
+
+1. Unit Testleri     
+SDK'nın çalışma mantığını ve metodlarını izole bir şekilde test etmek için kullanılır.  
+
+   ```bash
+   dotnet test --filter "Category=UnitTest"
+   ```
+2. Contract Testleri   
+SDK'nın API ile olan sözleşmesini doğrulamak için kullanılır.
+
+   ```bash
+     dotnet test --filter "Category=ContractTest"
+   ```
+
+3. Integration Testleri  
+SDK'nın gerçek bir API veya servis ile etkileşimini test etmek için kullanılır.  
+
+   ```bash
+    dotnet test --filter "Category=IntegrationTest"
+   ```
+
 ## Kullanım
 
 1.  Web API 
@@ -68,7 +91,7 @@ SDK, aşağıdaki katmanlardan oluşuyor:
         public async Task<IActionResult> GetCustomers(string providerType)
         {
             var customers = await _customerProviderService.GetCustomersAsync(providerType);
-            return customers is not null ? Ok(customers) : NotFound("Provider not found");
+            return customers.Any() ? Ok(customers) : NotFound("Provider not found");
         }
     }
     ```
