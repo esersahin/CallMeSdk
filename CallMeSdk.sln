@@ -15,13 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.Client.WebApi", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.Client.Terminal", "clients\CallMeSdk.Client.Terminal\CallMeSdk.Client.Terminal.csproj", "{D96BF6B4-D68E-4431-8CD1-3484DCAC557D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.Client.DataAdapters", "clients\CallMeSdk.Client.DataAdapters\CallMeSdk.Client.DataAdapters.csproj", "{9116745C-9339-4CD0-B780-93FF3095C192}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.Tests.Unit", "tests\CallMeSdk.Tests.Unit\CallMeSdk.Tests.Unit.csproj", "{15EBB251-F21E-456C-92EE-0158334A3C89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.Tests.Integration", "tests\CallMeSdk.Tests.Integration\CallMeSdk.Tests.Integration.csproj", "{ACB36530-3B5D-4591-9719-D8D62D20F9AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.Tests.Contract", "tests\CallMeSdk.Tests.Contract\CallMeSdk.Tests.Contract.csproj", "{82A03E3B-16C4-4122-9DE2-F3B80ED679FC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallMeSdk.DataAdapters", "CallMeSdk.DataAdapters\CallMeSdk.DataAdapters.csproj", "{9116745C-9339-4CD0-B780-93FF3095C192}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +128,6 @@ Global
 		{15EBB251-F21E-456C-92EE-0158334A3C89} = {1763D525-663C-4289-8566-C37A85607C2A}
 		{ACB36530-3B5D-4591-9719-D8D62D20F9AF} = {1763D525-663C-4289-8566-C37A85607C2A}
 		{82A03E3B-16C4-4122-9DE2-F3B80ED679FC} = {1763D525-663C-4289-8566-C37A85607C2A}
-		{9116745C-9339-4CD0-B780-93FF3095C192} = {3E40493C-DD3C-46D4-9F3D-9C14925C0A01}
+		{9116745C-9339-4CD0-B780-93FF3095C192} = {29A9E98F-057E-4FD1-B880-3FF9A76EB338}
 	EndGlobalSection
 EndGlobal

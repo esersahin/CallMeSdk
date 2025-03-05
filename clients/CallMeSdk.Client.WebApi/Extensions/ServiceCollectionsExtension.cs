@@ -5,11 +5,11 @@ public static class ServiceCollectionExtension
     public static void AddClients(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddResolvers().
-            AddFactories().
-            AddClientServices().
-            AddAzonBank(configuration).
-            AddMikrozortBank(configuration).
-            AddStrongLifeInsurance(configuration);
+                 AddFactories().
+                 AddClientServices().
+                 AddAzonBank(configuration).
+                 AddMikrozortBank(configuration).
+                 AddStrongLifeInsurance(configuration);
     }
     
     private static IServiceCollection AddResolvers(this IServiceCollection services)
@@ -41,7 +41,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddAzonBank(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<SoapConfiguration>(Clients.AzonBank, configuration).
-                 AddKeyedScoped<IDataAdapter, AzonBankSoapDataAdapter>(Clients.AzonBank);
+                 AddKeyedScoped<IDataAdapter, SoapDataAdapter>(Clients.AzonBank);
      
         return services;
     }
@@ -49,7 +49,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddMikrozortBank(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<RestConfiguration>(Clients.MikrozortBank, configuration).
-                 AddKeyedScoped<IDataAdapter, MikrozortBankRestDataAdapter>(Clients.MikrozortBank);
+                 AddKeyedScoped<IDataAdapter, RestDataAdapter>(Clients.MikrozortBank);
 
         return services;
     }
@@ -57,7 +57,7 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddStrongLifeInsurance(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<FtpConfiguration>(Clients.StrongLifeInsurance, configuration).
-                 AddKeyedScoped<IDataAdapter, StrongLifeInsuranceFtpDataAdapter>(Clients.StrongLifeInsurance);
+                 AddKeyedScoped<IDataAdapter, FtpDataAdapter>(Clients.StrongLifeInsurance);
 
         return services;
     }

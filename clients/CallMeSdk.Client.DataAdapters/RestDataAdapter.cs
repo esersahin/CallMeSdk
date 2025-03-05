@@ -1,4 +1,4 @@
-namespace CallMeSdk.DataAdapters;
+namespace CallMeSdk.Client.DataAdapters;
 
 public sealed class RestDataAdapter
 (
