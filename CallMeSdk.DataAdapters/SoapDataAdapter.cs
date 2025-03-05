@@ -1,6 +1,6 @@
-namespace CallMeSdk.Client.Terminal.DataAdapters;
+namespace CallMeSdk.DataAdapters;
 
-public sealed class AzonBankSoapDataAdapter
+public sealed class SoapDataAdapter
 (
     ICustomerIdService customerIdService
 ) : IDataAdapter

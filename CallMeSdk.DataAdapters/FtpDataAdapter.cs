@@ -1,6 +1,6 @@
-namespace CallMeSdk.Client.Terminal.DataAdapters;
+namespace CallMeSdk.DataAdapters;
 
-public sealed class StrongLifeInsuranceFtpDataAdapter
+public sealed class FtpDataAdapter
 (
     ICustomerIdService customerIdService
 ) : IDataAdapter

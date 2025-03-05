@@ -1,6 +1,6 @@
-namespace CallMeSdk.Client.WebApi.DataAdapters;
+namespace CallMeSdk.DataAdapters;
 
-public class MikrozortBankRestDataAdapter
+public sealed class RestDataAdapter
 (
     JsonSerializerOptions jsonSerializerOptions
 ) : IDataAdapter
