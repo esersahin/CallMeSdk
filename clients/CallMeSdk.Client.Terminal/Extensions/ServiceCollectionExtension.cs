@@ -45,7 +45,8 @@ public static class ServiceCollectionExtension
     private static IServiceCollection AddAzonBank(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureEndpoint<SoapConfiguration>(Clients.AzonBank, configuration).
-                 AddKeyedScoped<IDataAdapter, SoapDataAdapter>(Clients.AzonBank).
+                 //AddKeyedScoped<IDataAdapter, SoapDataAdapter>(Clients.AzonBank).
+                 AddKeyedScoped<IDataAdapter, AzonBankCustomerDataAdapter>(Clients.AzonBank).
                  AddKeyedScoped<ICustomerProviderStrategy, AzonBankSoapStrategy>(Clients.AzonBank);
 
         return services;
