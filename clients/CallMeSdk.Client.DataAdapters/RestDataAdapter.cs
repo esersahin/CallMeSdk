@@ -1,8 +1,10 @@
+using CallMeSdk.Serialization;
+
 namespace CallMeSdk.Client.DataAdapters;
 
 public sealed class RestDataAdapter
 (
-    JsonSerializerOptions jsonSerializerOptions
+    AppJsonSerializerContext context
 ) : IDataAdapter
 {
     public IEnumerable<Customer> Adapt(string content)
@@ -12,6 +14,6 @@ public sealed class RestDataAdapter
             throw new InvalidOperationException("content is null or empty.");
         }
 
-        return JsonSerializer.Deserialize<IEnumerable<Customer>>(content, jsonSerializerOptions) ?? [];
+        return JsonSerializer.Deserialize(content, context.ListCustomer) ?? [];
     }
 }

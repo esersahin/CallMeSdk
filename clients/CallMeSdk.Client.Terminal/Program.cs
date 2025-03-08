@@ -1,4 +1,6 @@
-﻿var serviceCollection = new ServiceCollection();
+﻿using CallMeSdk.Serialization;
+
+var serviceCollection = new ServiceCollection();
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -21,7 +23,7 @@ var serviceProvider = serviceCollection.AddLogging(logging =>
 using (var scope = serviceProvider.CreateScope())
 {
     var customersService = scope.ServiceProvider.GetRequiredService<ICustomersService>();
-    var jsonSerializerOptions = scope.ServiceProvider.GetRequiredService<JsonSerializerOptions>();
+    var jsonSerializerContext = scope.ServiceProvider.GetRequiredService<AppJsonSerializerContext>();
     var customerIdService = scope.ServiceProvider.GetRequiredService<ICustomerIdService>();
     
     var soapConfiguration = scope.GetConfiguration<SoapConfiguration>(Clients.AzonBank);
@@ -30,7 +32,7 @@ using (var scope = serviceProvider.CreateScope())
     soapCustomers.PrintCustomers(Clients.AzonBank);
     
     var restConfiguration = scope.GetConfiguration<RestConfiguration>(Clients.MikrozortBank);
-    var restAdapter = new RestDataAdapter(jsonSerializerOptions);
+    var restAdapter = new RestDataAdapter(jsonSerializerContext);
     var restCustomers = await customersService.GetCustomersAsync(restConfiguration, restAdapter);
     restCustomers.PrintCustomers(Clients.MikrozortBank);
     

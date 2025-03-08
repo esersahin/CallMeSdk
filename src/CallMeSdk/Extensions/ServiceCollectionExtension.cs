@@ -1,3 +1,5 @@
+using CallMeSdk.Serialization;
+
 namespace CallMeSdk.Extensions;
 
 public static class ServiceCollectionExtension
@@ -22,12 +24,19 @@ public static class ServiceCollectionExtension
                  AddSingleton<IFtpClientFactory, FtpClientFactory>().
                  AddKeyedTransient<IFtpClient, FluentFtpClient>(FtpClientType.FluentFtp.GetKey());
         
-        services.AddScoped<JsonSerializerOptions>(provider =>
+        services.AddScoped<AppJsonSerializerContext>(provider =>
         {
             var customerIdService = provider.GetRequiredService<ICustomerIdService>();
-            var options = new JsonSerializerOptions();
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                WriteIndented = false,
+                IncludeFields = false,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
             options.Converters.Add(new CustomerIdJsonConverter(customerIdService));
-            return options;
+
+            return new AppJsonSerializerContext(options);
         });
         
         return services;
