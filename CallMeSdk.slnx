@@ -1,0 +1,18 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/clients/">
+    <Project Path="clients/CallMeSdk.Client.DataAdapters/CallMeSdk.Client.DataAdapters.csproj" />
+    <Project Path="clients/CallMeSdk.Client.Terminal/CallMeSdk.Client.Terminal.csproj" />
+    <Project Path="clients/CallMeSdk.Client.WebApi/CallMeSdk.Client.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/CallMeSdk/CallMeSdk.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CallMeSdk.Tests/CallMeSdk.Tests.csproj" />
+  </Folder>
+</Solution>
